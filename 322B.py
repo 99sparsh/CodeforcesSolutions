@@ -1,3 +1,4 @@
+# Ciel and flowers
 r, g, b = map(int, input().split())
 S = [r % 3, g % 3, b % 3]
 ans = (r//3+g//3+b//3)+min(S)
