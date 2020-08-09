@@ -41,48 +41,55 @@ int modexp(ll A, ll B, ll C)
 
     return (ll)((y + C) % C);
 }
-
-//Omkar and Class of Math
-
+int counter(string s, string m)
+{
+    int ans = 0;
+    for (int i = 0; i < s.length(); i++)
+    {
+        if (s.substr(i, m.length()) == m)
+            ans++;
+    }
+    return ans;
+}
 int main()
 {
     ll t;
     cin >> t;
     while (t--)
     {
-        ll n;
+        int n, flag2 = 0;
         cin >> n;
-        if (n % 2 == 0)
+        string s;
+        cin >> s;
+        string m = "abacaba";
+        for (int i = 0; i <= n - 7; i++)
         {
-            cout << (n / 2) << " " << (n / 2) << '\n';
-        }
-        else
-        {
-            ll lcm = LLONG_MAX, a = 1, b = n - 1;
-            for (ll i = 3; i <= sqrt(n); i += 2)
+            string temp = s;
+            int flag = 1;
+
+            for (int j = 0; j < 7; j++)
             {
-                if (n % i == 0)
+                if (temp[i + j] != '?' && temp[i + j] != m[j])
                 {
-                    ll f1 = i, f2 = n / i;
-                    ll tempa1 = f1, tempb1 = (n - f1);
-                    ll tempa2 = f2, tempb2 = (n - f2);
-                    ll lcm1 = (tempa1 * tempb1) / __gcd(tempa1, tempb1);
-                    ll lcm2 = (tempa2 * tempb2) / __gcd(tempa2, tempb2);
-                    if (lcm1 < lcm)
-                    {
-                        a = tempa1;
-                        b = tempb1;
-                        lcm = lcm1;
-                    }
-                    if (lcm2 < lcm)
-                    {
-                        a = tempa2;
-                        b = tempb2;
-                        lcm = lcm2;
-                    }
+                    flag = 0;
+                    break;
                 }
+                temp[i + j] = m[j];
             }
-            cout << a << " " << b << '\n';
+            if (flag && counter(temp, m) == 1)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (temp[j] == '?')
+                        temp[j] = 'f';
+                }
+                flag2 = 1;
+                cout << "Yes\n"
+                     << temp << '\n';
+                break;
+            }
         }
+        if (!flag2)
+            cout << "No\n";
     }
 }

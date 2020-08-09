@@ -41,48 +41,33 @@ int modexp(ll A, ll B, ll C)
 
     return (ll)((y + C) % C);
 }
-
-//Omkar and Class of Math
-
 int main()
 {
+    FastIO;
     ll t;
     cin >> t;
     while (t--)
     {
-        ll n;
-        cin >> n;
-        if (n % 2 == 0)
+        ll n, m;
+        cin >> n >> m;
+        ll a[n], b[m];
+        unordered_set<ll> a1;
+        for (ll i = 0; i < n; i++)
         {
-            cout << (n / 2) << " " << (n / 2) << '\n';
+            cin >> a[i];
+            a1.insert(a[i]);
         }
+        ll ans = -1;
+        for (ll i = 0; i < m; i++)
+        {
+            cin >> b[i];
+            if (a1.find(b[i]) != a1.end())
+                ans = b[i];
+        }
+        if (ans == -1)
+            cout << "NO\n";
         else
-        {
-            ll lcm = LLONG_MAX, a = 1, b = n - 1;
-            for (ll i = 3; i <= sqrt(n); i += 2)
-            {
-                if (n % i == 0)
-                {
-                    ll f1 = i, f2 = n / i;
-                    ll tempa1 = f1, tempb1 = (n - f1);
-                    ll tempa2 = f2, tempb2 = (n - f2);
-                    ll lcm1 = (tempa1 * tempb1) / __gcd(tempa1, tempb1);
-                    ll lcm2 = (tempa2 * tempb2) / __gcd(tempa2, tempb2);
-                    if (lcm1 < lcm)
-                    {
-                        a = tempa1;
-                        b = tempb1;
-                        lcm = lcm1;
-                    }
-                    if (lcm2 < lcm)
-                    {
-                        a = tempa2;
-                        b = tempb2;
-                        lcm = lcm2;
-                    }
-                }
-            }
-            cout << a << " " << b << '\n';
-        }
+            cout << "Yes\n"
+                 << "1 " << ans << '\n';
     }
 }

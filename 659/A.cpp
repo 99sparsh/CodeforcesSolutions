@@ -41,9 +41,6 @@ int modexp(ll A, ll B, ll C)
 
     return (ll)((y + C) % C);
 }
-
-//Omkar and Class of Math
-
 int main()
 {
     ll t;
@@ -52,37 +49,41 @@ int main()
     {
         ll n;
         cin >> n;
-        if (n % 2 == 0)
+        ll a[n];
+        ll maxx = -1;
+        int count = 0;
+        for (ll i = 0; i < n; i++)
         {
-            cout << (n / 2) << " " << (n / 2) << '\n';
+            cin >> a[i];
+            maxx = max(maxx, a[i]);
+            if (a[i] == 0)
+                count++;
         }
-        else
+        if (count == n)
         {
-            ll lcm = LLONG_MAX, a = 1, b = n - 1;
-            for (ll i = 3; i <= sqrt(n); i += 2)
+            string words[] = {"fuck", "you"};
+            for (ll i = 0; i <= n; i++)
+                cout << words[i % 2] << '\n';
+            continue;
+        }
+        string base = "";
+        for (ll i = 0; i < maxx; i++)
+            base += "a";
+        cout << base << '\n';
+        for (ll i = 0; i < n; i++)
+        {
+
+            string temp = "";
+            temp = base;
+            for (ll j = a[i]; j < maxx; j++)
             {
-                if (n % i == 0)
-                {
-                    ll f1 = i, f2 = n / i;
-                    ll tempa1 = f1, tempb1 = (n - f1);
-                    ll tempa2 = f2, tempb2 = (n - f2);
-                    ll lcm1 = (tempa1 * tempb1) / __gcd(tempa1, tempb1);
-                    ll lcm2 = (tempa2 * tempb2) / __gcd(tempa2, tempb2);
-                    if (lcm1 < lcm)
-                    {
-                        a = tempa1;
-                        b = tempb1;
-                        lcm = lcm1;
-                    }
-                    if (lcm2 < lcm)
-                    {
-                        a = tempa2;
-                        b = tempb2;
-                        lcm = lcm2;
-                    }
-                }
+                if (base[j] == 'a')
+                    temp[j] = 'b';
+                else
+                    temp[j] = 'a';
             }
-            cout << a << " " << b << '\n';
+            base = temp;
+            cout << base << '\n';
         }
     }
 }

@@ -42,47 +42,47 @@ int modexp(ll A, ll B, ll C)
     return (ll)((y + C) % C);
 }
 
-//Omkar and Class of Math
-
+ll recur(string s, ll l, ll r, char c, int sw)
+{
+    if (l == r)
+    {
+        if (s[l] != c)
+            return 1;
+        return 0;
+    }
+    if (sw == 0)
+    {
+        ll count = 0, mid = (r + l) / 2;
+        for (ll i = l; i <= mid; i++)
+        {
+            if (s[i] != c)
+                count++;
+        }
+        return count + min(recur(s, mid + 1, r, c + 1, 0), recur(s, mid + 1, r, c + 1, 1));
+    }
+    else
+    {
+        ll count = 0, mid = (r + l) / 2;
+        for (ll i = mid + 1; i <= r; i++)
+        {
+            if (s[i] != c)
+                count++;
+        }
+        return count + min(recur(s, l, mid, c + 1, 0), recur(s, l, mid, c + 1, 1));
+    }
+}
 int main()
 {
+    FastIO;
     ll t;
     cin >> t;
     while (t--)
     {
         ll n;
         cin >> n;
-        if (n % 2 == 0)
-        {
-            cout << (n / 2) << " " << (n / 2) << '\n';
-        }
-        else
-        {
-            ll lcm = LLONG_MAX, a = 1, b = n - 1;
-            for (ll i = 3; i <= sqrt(n); i += 2)
-            {
-                if (n % i == 0)
-                {
-                    ll f1 = i, f2 = n / i;
-                    ll tempa1 = f1, tempb1 = (n - f1);
-                    ll tempa2 = f2, tempb2 = (n - f2);
-                    ll lcm1 = (tempa1 * tempb1) / __gcd(tempa1, tempb1);
-                    ll lcm2 = (tempa2 * tempb2) / __gcd(tempa2, tempb2);
-                    if (lcm1 < lcm)
-                    {
-                        a = tempa1;
-                        b = tempb1;
-                        lcm = lcm1;
-                    }
-                    if (lcm2 < lcm)
-                    {
-                        a = tempa2;
-                        b = tempb2;
-                        lcm = lcm2;
-                    }
-                }
-            }
-            cout << a << " " << b << '\n';
-        }
+        string s;
+        cin >> s;
+        ll ans = min(recur(s, 0, n - 1, 'a', 0), recur(s, 0, n - 1, 'a', 1));
+        cout << ans << '\n';
     }
 }

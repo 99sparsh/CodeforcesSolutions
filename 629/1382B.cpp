@@ -41,48 +41,46 @@ int modexp(ll A, ll B, ll C)
 
     return (ll)((y + C) % C);
 }
+int findFirstNumIndex(ll &k, ll n)
+{
 
-//Omkar and Class of Math
+    if (n == 1)
+        return 0;
+    n--;
 
+    ll first_num_index;
+    ll n_partial_fact = n;
+
+    while (k >= n_partial_fact && n > 1)
+    {
+        n_partial_fact = n_partial_fact * (n - 1);
+        n--;
+    }
+    first_num_index = k / n_partial_fact;
+
+    k = k % n_partial_fact;
+
+    return first_num_index;
+}
 int main()
 {
-    ll t;
+    int t;
     cin >> t;
     while (t--)
     {
-        ll n;
-        cin >> n;
-        if (n % 2 == 0)
+        int n, k;
+        cin >> n >> k;
+        string s(n, 'a');
+        for (int i = n - 2; i >= 0; i--)
         {
-            cout << (n / 2) << " " << (n / 2) << '\n';
-        }
-        else
-        {
-            ll lcm = LLONG_MAX, a = 1, b = n - 1;
-            for (ll i = 3; i <= sqrt(n); i += 2)
+            if (k <= (n - i - 1))
             {
-                if (n % i == 0)
-                {
-                    ll f1 = i, f2 = n / i;
-                    ll tempa1 = f1, tempb1 = (n - f1);
-                    ll tempa2 = f2, tempb2 = (n - f2);
-                    ll lcm1 = (tempa1 * tempb1) / __gcd(tempa1, tempb1);
-                    ll lcm2 = (tempa2 * tempb2) / __gcd(tempa2, tempb2);
-                    if (lcm1 < lcm)
-                    {
-                        a = tempa1;
-                        b = tempb1;
-                        lcm = lcm1;
-                    }
-                    if (lcm2 < lcm)
-                    {
-                        a = tempa2;
-                        b = tempb2;
-                        lcm = lcm2;
-                    }
-                }
+                s[i] = 'b';
+                s[n - k] = 'b';
+                cout << s << endl;
+                break;
             }
-            cout << a << " " << b << '\n';
+            k -= (n - i - 1);
         }
     }
 }

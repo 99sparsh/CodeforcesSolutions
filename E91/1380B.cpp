@@ -41,48 +41,32 @@ int modexp(ll A, ll B, ll C)
 
     return (ll)((y + C) % C);
 }
-
-//Omkar and Class of Math
-
+//Universal Solution
 int main()
 {
     ll t;
     cin >> t;
     while (t--)
     {
-        ll n;
-        cin >> n;
-        if (n % 2 == 0)
+        string s, ans = "";
+        cin >> s;
+        ll R = 0, S = 0, P = 0, n = s.length();
+        for (ll i = 0; i < n; i++)
         {
-            cout << (n / 2) << " " << (n / 2) << '\n';
+            if (s[i] == 'R')
+                R++;
+            else if (s[i] == 'P')
+                P++;
+            else
+                S++;
         }
+
+        if (max({R, P, S}) == R)
+            ans.insert(0, n, 'P');
+        else if (max({R, P, S}) == P)
+            ans.insert(0, n, 'S');
         else
-        {
-            ll lcm = LLONG_MAX, a = 1, b = n - 1;
-            for (ll i = 3; i <= sqrt(n); i += 2)
-            {
-                if (n % i == 0)
-                {
-                    ll f1 = i, f2 = n / i;
-                    ll tempa1 = f1, tempb1 = (n - f1);
-                    ll tempa2 = f2, tempb2 = (n - f2);
-                    ll lcm1 = (tempa1 * tempb1) / __gcd(tempa1, tempb1);
-                    ll lcm2 = (tempa2 * tempb2) / __gcd(tempa2, tempb2);
-                    if (lcm1 < lcm)
-                    {
-                        a = tempa1;
-                        b = tempb1;
-                        lcm = lcm1;
-                    }
-                    if (lcm2 < lcm)
-                    {
-                        a = tempa2;
-                        b = tempb2;
-                        lcm = lcm2;
-                    }
-                }
-            }
-            cout << a << " " << b << '\n';
-        }
+            ans.insert(0, n, 'R');
+        cout << ans << '\n';
     }
 }

@@ -41,9 +41,6 @@ int modexp(ll A, ll B, ll C)
 
     return (ll)((y + C) % C);
 }
-
-//Omkar and Class of Math
-
 int main()
 {
     ll t;
@@ -52,37 +49,22 @@ int main()
     {
         ll n;
         cin >> n;
-        if (n % 2 == 0)
+        if (n <= 30)
         {
-            cout << (n / 2) << " " << (n / 2) << '\n';
+            cout << "NO\n";
+            continue;
         }
-        else
+        cout << "YES\n";
+        int a[4];
+        a[0] = 6;
+        a[1] = 10;
+        a[2] = 14;
+        a[3] = n - 30;
+        if (a[3] == a[1] || a[3] == a[0] || a[3] == a[2])
         {
-            ll lcm = LLONG_MAX, a = 1, b = n - 1;
-            for (ll i = 3; i <= sqrt(n); i += 2)
-            {
-                if (n % i == 0)
-                {
-                    ll f1 = i, f2 = n / i;
-                    ll tempa1 = f1, tempb1 = (n - f1);
-                    ll tempa2 = f2, tempb2 = (n - f2);
-                    ll lcm1 = (tempa1 * tempb1) / __gcd(tempa1, tempb1);
-                    ll lcm2 = (tempa2 * tempb2) / __gcd(tempa2, tempb2);
-                    if (lcm1 < lcm)
-                    {
-                        a = tempa1;
-                        b = tempb1;
-                        lcm = lcm1;
-                    }
-                    if (lcm2 < lcm)
-                    {
-                        a = tempa2;
-                        b = tempb2;
-                        lcm = lcm2;
-                    }
-                }
-            }
-            cout << a << " " << b << '\n';
+            a[2] = 15;
+            a[3] = n - 31;
         }
+        cout << a[0] << " " << a[1] << " " << a[2] << " " << a[3] << '\n';
     }
 }
