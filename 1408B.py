@@ -1,0 +1,19 @@
+t=int(input())
+for _ in range(t):
+	n,k=map(int,input().split())
+	arr=list(map(int,input().split()))
+	s=set(arr)
+	l=len(s)
+	if(k==1):
+		if(l>1):
+			print(-1)
+		else:
+			print(1)
+	else:
+		if(l<=k):
+			print(1)
+		else:
+			if((l-k)%(k-1)==0):
+				print(1+(l-k)//(k-1))
+			else:
+				print(2+(l-k)//(k-1))
